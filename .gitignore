@@ -1,0 +1,9 @@
+# Data
+data/raw/
+data/processed/
+
+# Python cache
+__pycache__/
+
+# Spyder settings
+.spyproject/
