@@ -1,3 +1,13 @@
 # Olist-Sales-Analysis
 Analysis of publicly available sales data from Olist
-adding a new line here in github to see how it interacts with local files
+
+```mermaid
+erDiagram
+	CUSTOMER ||--o{ ORDER : connection_label
+	CUSTOMER {
+		datatype name_of_column
+		string name
+		int custNumber
+	}
+```
+
