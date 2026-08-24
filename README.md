@@ -1,5 +1,5 @@
 # Olist-Sales-Analysis
-Analysis of publicly available sales data from Olist
+Analysis of publicly available sales data from Olist available on Kaggle at https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 
 
