@@ -1,6 +1,10 @@
 # Olist-Sales-Analysis
 Analysis of publicly available sales data from Olist available on Kaggle at https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-
+<!--
+To Do list
+-convert dates into proper datetimes so they can be analysed in data_cleaning.py
+-complete temporal analysis
+-->
 
 
 
