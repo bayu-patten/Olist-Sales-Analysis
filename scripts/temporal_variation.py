@@ -87,5 +87,5 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.title(label=f"Top {top_n} product categories sales")
 
-plt.savefig(project_root / "visuals" / "timeseries_sales.png")
+plt.savefig(project_root / "visuals" / "timeseries_sales.png", bbox_inches="tight")
 plt.show()
