@@ -1,13 +1,21 @@
 # Olist-Sales-Analysis
 Analysis of publicly available sales data from Olist
-
+<!-- 
+Questions that are worth exploring
+	Where are most of our sales coming from?
+	Which products are the best/worst reviewed?
+	Which products are making us the most money?
+	Does the difference between estimated/actual delivery date correlate with review scores? Does it affect the odds of having a repeat customer?
+	When in the year are the most sales made?
+	Does the type of product sold vary across the seasons?
+-->
 
 
 
 <!--
 This diagram is not of interest to stakeholders and is only for technical audience. Therefore it takes low priority and should go near the bottom
 -->
-## Relational diagram of raw dataset
+## Relational diagram of raw datasets
 ```mermaid
 erDiagram
 %% List out tables
