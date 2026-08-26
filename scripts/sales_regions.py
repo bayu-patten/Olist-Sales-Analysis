@@ -73,10 +73,12 @@ gdf["significance"] = gdf["total_sale"] / gdf["total_sale"].max()
 #%% plot data
 fig, ax = plt.subplots()
 world.plot(ax=ax, color="lightgrey", edgecolor="white")
-gdf.plot(ax=ax, color="red", markersize=gdf["significance"]*500, alpha=0.75)
+#color="red" makes the plot look like its tracking an epidemic
+gdf.plot(ax=ax, color="green", markersize=gdf["significance"]*500, alpha=0.75)
 # restrict to South America
 ax.set_xlim(-85, -30)
 ax.set_ylim(-60, 15)
 ax.set_axis_off()
+plt.savefig(project_root / "visuals" / "sales_regions.png")
 plt.show()
 
