@@ -8,7 +8,6 @@ Questions that are worth exploring
 	Does the difference between estimated/actual delivery date correlate with review scores? Does it affect the odds of having a repeat customer?
 	When in the year are the most sales made?
 	Does the type of product sold vary across the seasons?
-Analysis of publicly available sales data from Olist 
 
 To Do list
 -convert dates into proper datetimes so they can be analysed in data_cleaning.py

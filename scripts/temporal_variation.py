@@ -11,7 +11,6 @@ See variation in count of items sold and in $ value
 import pandas as pd
 from pathlib import Path
 import matplotlib.pyplot as plt
-import numpy as np
 
 project_root = Path(__file__).resolve().parent.parent
 
@@ -22,22 +21,71 @@ sales_data = sales_data[sales_data["order_status"] == "delivered"]
 sales_data = sales_data[sales_data["order_delivered_customer_date"].notna()]
 
 sales_data["total_sale"] = sales_data["price"]*sales_data["order_item_id"]
-sales_data["sale_month"] = sales_data["order_delivered_customer_date"].dt.to_period('M')
+sales_data["sale_month"] = (
+    pd.to_datetime(sales_data["order_delivered_customer_date"])
+    .dt.to_period('M')
+    .dt.to_timestamp()
+    )
+#filter to months with consistent complete data (before feb 2017 has far too
+#few orders and after aug 2018 is also suspiciously low)
+sales_data = sales_data[sales_data["sale_month"].between(
+    left="2017-02-01",
+    right="2018-08-01",
+    inclusive="both"
+    )]
 
-plot_data = sales_data.pivot_table(
-    index=["sale_month", "product_category_name_english"],
-    values=["order_item_id", "total_sale"]
-    ).reset_index()
-#%%
-fig, ax = plt.subplots()
-
-for category, group in plot_data.groupby("product_category_name_english"):
-    plt.plot(
-        group["sale_month"],
-        group["total_sale"],
-        label=category
+#there are far too many categories of product to plot all of them.
+#we should limit to the top N categories by total sales volume as
+#measured by [items sold/$ values]
+priority = "total_sale"
+top_n = 9
+top_categories = (
+    sales_data
+    .pivot_table(
+        index="product_category_name_english",
+        values=priority,
+        aggfunc="sum"
+        )
+    .sort_values(by=priority, ascending=False)
+    .head(n=top_n)
+    .index.tolist()
     )
 
-plt.legend()
-plt.savefig(project_root / "timeseries_sales.png")
+plot_data = sales_data.copy()
+
+plot_data.loc[~plot_data["product_category_name_english"].isin(top_categories), "product_category_name_english"] = "Other"
+#plot_data = plot_data[plot_data["product_category_name_english"].isin(top_categories)]
+
+plot_data = plot_data.pivot_table(
+    index="sale_month",
+    values=priority,
+    aggfunc="sum",
+    columns="product_category_name_english"
+    )
+#sort columns so that the one with the biggest total is first
+column_order = plot_data.sum().sort_values(ascending=True).index
+plot_data = plot_data[column_order]
+
+proportions = plot_data.div(plot_data.sum(axis=1), axis=0)
+#%%
+df = proportions
+fig, ax = plt.subplots()
+
+plt.stackplot(
+    df.index,
+    *df.T.values,
+    labels=df.columns
+    )
+handles, labels = ax.get_legend_handles_labels()
+plt.legend(
+    fontsize=8,
+    loc="upper left",
+    handles=handles[::-1],
+    labels=labels[::-1],
+    )
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.title(label=f"Top {top_n} product categories sales")
+
+plt.savefig(project_root / "visuals" / "timeseries_sales.png")
 plt.show()
