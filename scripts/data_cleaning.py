@@ -22,6 +22,17 @@ translation = pd.read_csv(raw_data / "product_category_name_translation.csv")
 #drop all the duplicates and assume its fine
 geolocation = geolocation.drop_duplicates(subset="geolocation_zip_code_prefix")
 
+#tidy the translations of product names "sports_leisure" -> "Sports Leisure"
+translation["product_category_name_english"] = (
+    translation["product_category_name_english"]
+    .str.replace("_", " ")
+    .str.title()
+    )
+#%% remove outlier months of data
+#months of data outside of feb 2017 - aug 2018 look to be incomplete based on
+#order numbers so may need excluding depending on the analysis
+#we will leave them in and remove them as needed
+
 #%%
 #order_items has fewer order_id values than the orders dataset.
 #which orders are missing?
