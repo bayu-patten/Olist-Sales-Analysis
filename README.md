@@ -19,8 +19,7 @@ To Do list
 -convert dates into proper datetimes so they can be analysed in data_cleaning.py
 -complete temporal analysis
 -->
-
-
+![Sales over time](visuals/reviews_delivery_lateness.png | width=100)
 
 <!--
 This diagram is not of interest to stakeholders and is only for technical audience. Therefore it takes low priority and should go near the bottom
