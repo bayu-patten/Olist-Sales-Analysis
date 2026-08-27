@@ -61,3 +61,8 @@ plt.savefig(
     project_root / "visuals" / "reviews_delivery_lateness.png",
     bbox_inches="tight")
 plt.show()
+
+#%%
+#the 0.0 p value tells us that indeed delays make for negative reviews
+#now a question worth asking is "do negative reviews make for non-repeat
+#customers?"
