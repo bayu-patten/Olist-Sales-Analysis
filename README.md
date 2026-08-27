@@ -3,11 +3,17 @@ Analysis of publicly available sales data from Olist available on Kaggle at http
 <!-- 
 Questions that are worth exploring
 	Where are most of our sales coming from?
+		sales_regions.py
 	Which products are the best/worst reviewed?
+		X
 	Which products are making us the most money?
+		temporal_variation.py
 	Does the difference between estimated/actual delivery date correlate with review scores? Does it affect the odds of having a repeat customer?
+		review_correlation.py
 	When in the year are the most sales made?
+		not enough data for this
 	Does the type of product sold vary across the seasons?
+		temporal_variation.py (the data only spans one year so insufficient to compare overall seasonal trends)
 
 To Do list
 -convert dates into proper datetimes so they can be analysed in data_cleaning.py

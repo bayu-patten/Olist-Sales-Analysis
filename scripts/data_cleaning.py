@@ -40,7 +40,16 @@ translation["product_category_name_english"] = (
 #%%
 #reviews has more entries than unique order_id values
 reviews_repeat_order_ids = reviews[reviews["order_id"].duplicated(keep=False)]
-#someone can drop multiple reviews for the same order
+#there are repeat reviews for the same order_id
+#it makes sense to always take the more recent review as someone may submit
+#a second review if they change their mind on the product and feel like they
+#needed to update their review
+reviews["review_answer_timestamp"] = pd.to_datetime(reviews["review_answer_timestamp"])
+reviews = (
+    reviews
+    .sort_values(by="review_answer_timestamp", ascending=False)
+    .drop_duplicates(subset="order_id",keep="first")
+    )
 
 #%%
 #are there are orders that dont appear in order_items?
@@ -79,7 +88,8 @@ final_data = (
     #translations do not need the outer merge as we will not be interested
     #in a translation dataset
     .merge(translation, on="product_category_name", how="left")
-    #will not merge reviews data on as it will duplicate values and be useless
+    #merge reviews which has order_id as unique key
+    .merge(reviews, on="order_id", how="outer")
     )
 final_data.to_csv(
     project_root / "data" / "processed" / "merged_data.csv",
