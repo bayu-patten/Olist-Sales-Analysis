@@ -10,15 +10,12 @@ from pathlib import Path
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
+from sales_data import sales_data, project_root
+
 
 #%% import data
-project_root = Path(__file__).resolve().parent.parent
 
-sales_data = pd.read_csv(project_root / "data" / "processed" / "merged_data.csv")
 geolocations_raw = pd.read_csv(project_root / "data" / "raw" / "olist_geolocation_dataset.csv")
-
-#column for total price of items
-sales_data["total_sale"] = sales_data["price"]*sales_data["order_item_id"]
 
 #%% create data to be displayed
 geolocations = (
